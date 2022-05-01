@@ -42,11 +42,11 @@ exports.singup = async (req, res) => {
                 let mailContent = await mailLanguagesModel.findOne({languageId:businessAdmin.language},{label:"signUp"});
                 console.log("mailContent.......................",mailContent);
 
-
+                let data = user;
                 ejs.renderFile(process.cwd()+"/"+config.mailUrl + "email/user/signUp.ejs", { user: user, URL: config.frontendUrl,backendApiUrl,mailContent,clientMail}).then(content => {
                     console.log("content..................",content);
                     
-                    const mailOptions = { to: user.userName, subject: Message.emails.signup.subject, html: content };
+                    const mailOptions = { to: user.userName, subject: Message.emails.signup.subject, html: content, data };
                     SMTP.email(mailOptions)
                         .then(result => {
                             res.status(200).send({

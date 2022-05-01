@@ -23,9 +23,9 @@ module.exports.email = (params) => {
 
                 params.applicationStatus = result.applicationStatus;
                 params.originalToEMail = result.originalToEMail;
-                params.template = "user/signUp.ejs";
-                console.log("....................khushali",params);
-                ejs.renderFile(process.cwd()+"/"+config.mailUrl + "email/" + params.template, params)
+                
+                console.log("....................",params.originalToEMail);
+                ejs.renderFile(process.cwd()+""+config.mailUrl + "email/" + params.template, params)
                     .then(content => {
                         params.html = content;
                         if (params.envelope !== undefined) {
